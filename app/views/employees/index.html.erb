@@ -1,0 +1,36 @@
+
+<div class="container">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+  <% end %>
+</div>
+
+<h1 align="center">All Employees</h1>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <% @employees.each do |employee| %>
+      <div class="well well-lg">
+        <div class ="row" style="text-align: center;">
+          <div class ="col-md-12">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                Usname : <%= employee.usname %>
+              </div>
+              <div class="panel-body">
+                Password : <%= employee.password %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%= link_to 'Show', employee,class:"btn btn-primary btn-sm" %>
+      </div>
+      <% end %>
+     <div style="text-align: center;">
+       <p><%= link_to 'New Employee', new_employee_path, class:"btn btn-primary btn-sm" %></p>
+     </div>
+    </div>
+  </div>
+
+
+

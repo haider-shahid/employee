@@ -1,0 +1,29 @@
+<div class="container">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+  <% end %>
+</div>
+
+<div class="well well-lg">
+  <div class="row">
+    <div class="col-md-12 col-md-offset-2">
+      <h2>Credentials</h2>
+
+      <div class ="row">
+        <div class ="col-md-4">
+           <div class="panel panel-info">
+              <div class="panel-heading">
+                Usname : <%= @employee.usname %>
+              </div>
+             <div class="panel-body">
+               Password : <%= @employee.password %>
+             </div>
+          </div>
+        </div>
+      </div>
+      <%= link_to 'Edit', edit_employee_path(@employee) ,class:"btn btn-primary btn-sm" %> |
+      <%= link_to 'Destroy', @employee, class:"btn btn-danger btn-sm" ,method: :delete, data: { confirm: 'Are you sure?' } %> |
+      <%= link_to 'View all Employee', employees_path ,class:"btn btn-success btn-sm" %>
+    </div>
+  </div>
+</div>
