@@ -25,7 +25,7 @@ class EmployeesController < ApplicationController
   # POST /employees.json
   def create
     @employee = Employee.new(employee_params)
-
+    @employee.user = User.first
       if @employee.save
         flash[:success] = 'Employee was successfully created.'
         redirect_to employee_path(@employee)

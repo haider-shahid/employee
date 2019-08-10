@@ -21,6 +21,12 @@
           </div>
         </div>
       </div>
+      <div>
+        <small>
+          Created By : <%=@employee.user.username %> | <%= time_ago_in_words(@employee.created_at) %> ago
+        </small>
+      </div>
+      <hr>
       <%= link_to 'Edit', edit_employee_path(@employee) ,class:"btn btn-primary btn-sm" %> |
       <%= link_to 'Destroy', @employee, class:"btn btn-danger btn-sm" ,method: :delete, data: { confirm: 'Are you sure?' } %> |
       <%= link_to 'View all Employee', employees_path ,class:"btn btn-success btn-sm" %>
