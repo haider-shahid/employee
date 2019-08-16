@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
   # GET /employees
   # GET /employees.json
   def index
-    @employees = Employee.all
+    @employees = user.employees.paginate(page: params[:page],per_page:4)
   end
 
   # GET /employees/1
@@ -25,10 +25,11 @@ class EmployeesController < ApplicationController
   # POST /employees.json
   def create
     @employee = Employee.new(employee_params)
-    @employee.user = User.first
+    user = User.find(session[:user_id])
+    @employee.user = user
       if @employee.save
         flash[:success] = 'Employee was successfully created.'
-        redirect_to employee_path(@employee)
+        redirect_to user_path(user)
       else
         render 'new'
       end
@@ -39,7 +40,8 @@ class EmployeesController < ApplicationController
   def update
     if @employee.update(employee_params)
       flash[:success] = 'Employee was successfully updated.'
-      redirect_to employee_path(@employee)
+      user = User.find(session[:user_id])
+      redirect_to user_path(user)
     else
       render 'edit'
     end
@@ -51,8 +53,8 @@ class EmployeesController < ApplicationController
   def destroy
     @employee.destroy
     flash[:danger] = 'Employee was successfully destroyed.'
-    redirect_to employees_path
-
+    user = User.find(session[:user_id])
+    redirect_to user_path(user)
   end
 
   private
