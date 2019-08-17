@@ -4,6 +4,6 @@
 
 <div class = 'row'>
   <div class = 'col-lg-12 col-lg-offset-3'>
-    <%= link_to 'Back', user_path(User.find(session[:user_id])), class:"btn btn-primary btn-lg"%>
+    <%= link_to 'Back', user_path(current_user), class:"btn btn-primary btn-lg"%>
   </div>
 </div>

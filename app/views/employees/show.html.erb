@@ -29,7 +29,7 @@
       <hr>
       <%= link_to 'Edit', edit_employee_path(@employee) ,class:"btn btn-primary btn-sm" %> |
       <%= link_to 'Destroy', @employee, class:"btn btn-danger btn-sm" ,method: :delete, data: { confirm: 'Are you sure?' } %> |
-      <%= link_to 'View all Employee', user_path(User.find(session[:user_id])) ,class:"btn btn-success btn-sm" %>
+      <%= link_to 'View all Passwords', user_path(current_user) ,class:"btn btn-success btn-sm" %>
     </div>
   </div>
 </div>

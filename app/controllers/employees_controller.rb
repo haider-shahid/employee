@@ -1,5 +1,7 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, only: [:new,:show,:edit,:destroy,:update,:create]
+  before_action :require_same_user, only:[:edit,:show,:update,:destroy]
 
   # GET /employees
   # GET /employees.json
@@ -25,11 +27,12 @@ class EmployeesController < ApplicationController
   # POST /employees.json
   def create
     @employee = Employee.new(employee_params)
-    user = User.find(session[:user_id])
-    @employee.user = user
+    #user = User.find(session[:user_id])
+    #@employee.user = user
+    @employee.user = current_user
       if @employee.save
         flash[:success] = 'Employee was successfully created.'
-        redirect_to user_path(user)
+        redirect_to user_path(current_user)
       else
         render 'new'
       end
@@ -40,8 +43,8 @@ class EmployeesController < ApplicationController
   def update
     if @employee.update(employee_params)
       flash[:success] = 'Employee was successfully updated.'
-      user = User.find(session[:user_id])
-      redirect_to user_path(user)
+      #user = User.find(session[:user_id])
+      redirect_to user_path(current_user)
     else
       render 'edit'
     end
@@ -53,8 +56,8 @@ class EmployeesController < ApplicationController
   def destroy
     @employee.destroy
     flash[:danger] = 'Employee was successfully destroyed.'
-    user = User.find(session[:user_id])
-    redirect_to user_path(user)
+    #user = User.find(session[:user_id])
+    redirect_to user_path(current_user)
   end
 
   private
@@ -66,5 +69,12 @@ class EmployeesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:usname, :password)
+    end
+
+    def require_same_user
+      if current_user != @employee.user
+        flash[:danger] = "You can only Visit you Employees"
+        redirect_to user_path(current_user)
+      end
     end
 end
